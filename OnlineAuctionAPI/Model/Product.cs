@@ -1,16 +1,22 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
-namespace DockerMongoTestApp.Models
+namespace OnlineAuctionAPI.Models
 {
     public class Product
     {
         [BsonId]
+        [Key]
         public ObjectId Id { get; set; }
         [BsonElement("name")]
-        public required string Name { get; set; }
+        [Required]
+        [MaxLength(30)]
+        public string Name { get; set; }
         [BsonElement("description")]
-        public required string Description { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string Description { get; set; }
         [BsonElement("inituialvalue")]
         public decimal InitialValue { get; set; }
         [BsonElement("urrentvalue")]

@@ -1,4 +1,5 @@
-using DockerMongoTestApp.Models;
+using OnlineAuctionAPI;
+using OnlineAuctionAPI.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +17,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+//AddDummyData.AddDummyUser();
+//AddDummyData.AddDummyProduct();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -24,5 +26,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapUserEndpoints();
+
+app.MapProductEndpoints();
 
 app.Run();
