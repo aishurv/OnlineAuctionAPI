@@ -23,6 +23,14 @@ namespace DB
                 return collection.Find(_ => true).ToList();
             }
         }
+        public static List<Product> Users
+        {
+            get
+            {
+                var collection = Database.GetCollection<Product>("users");
+                return collection.Find(_ => true).ToList();
+            }
+        }
         public static void AddProduct(Product product)
         {
             _productCollection.InsertOne(product);

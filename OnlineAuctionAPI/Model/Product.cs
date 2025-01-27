@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
 namespace DockerMongoTestApp.Models
@@ -13,10 +8,16 @@ namespace DockerMongoTestApp.Models
         [BsonId]
         public ObjectId Id { get; set; }
         [BsonElement("name")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         [BsonElement("description")]
-        public string Description { get; set; }
-        [BsonElement("price")]
-        public decimal Price { get; set; }
+        public required string Description { get; set; }
+        [BsonElement("inituialvalue")]
+        public decimal InitialValue { get; set; }
+        [BsonElement("urrentvalue")]
+        public decimal CurrentValue { get; set; }
+        [BsonElement("prepvalue")]
+        public decimal PreValue { get; set; }
+        [BsonElement("isactive")]
+        public bool IsActive { get; set; }
     }
 }
