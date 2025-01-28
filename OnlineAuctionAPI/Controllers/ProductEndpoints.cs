@@ -1,45 +1,35 @@
 ﻿using DB;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using OnlineAuctionAPI.Data;
 using OnlineAuctionAPI.Models;
 namespace OnlineAuctionAPI.Controllers
 {
 public static class ProductEndpoints
 {
-	public static void MapProductEndpoints (this IEndpointRouteBuilder routes)
-    {
-        var group = routes.MapGroup("/api/Product");
 
+        private static readonly ProductRepository productRepository = new ProductRepository();
+        public static void MapProductEndpoints (this IEndpointRouteBuilder routes)
+    {
+        var group = routes.MapGroup("/api/Product").WithTags(nameof(Product)); ;
         group.MapGet("/", () =>
         {
-            return DBConnection.Products;
+            return productRepository.GetAllproducts();
         })
         .WithName("GetAllProducts")
         .Produces<Product[]>(StatusCodes.Status200OK);
 
         group.MapGet("/{id}", (String id) =>
         {
-            var product = DBConnection.Products.FirstOrDefault(u => u._id == id);
-            //if (product == null)
-            //    generateNo
-            return product;
+            return productRepository.GetById(id);
         })
         .WithName("GetProductById")
         .Produces<Product>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPut("/{id}", (String id, Product input) =>
+        group.MapPut("/{id}", (Product input) =>
         {
-            var product = DBConnection.Products.FirstOrDefault(p=>p._id == id);
-            if (product != null)
-            {
-                //DBConnection.Products.Save(product);
-                return Results.NoContent();
-            }
-            else
-            {
-                return Results.NotFound(id);
-            }
-
+            productRepository.Update(input);
         })
         .WithName("UpdateProduct")
         .Produces(StatusCodes.Status204NoContent)
@@ -48,16 +38,14 @@ public static class ProductEndpoints
 
         group.MapPost("/", (Product model) =>
         {
-            DBConnection.AddProduct(model);
-            return Results.Created();
-            //return Results.Created($"/api/Products/{model._id}", model);
+            productRepository.Create(model);
         })
         .WithName("CreateProduct")
         .Produces<Product>(StatusCodes.Status201Created);
 
         group.MapDelete("/{id}", (String id) =>
         {
-            //return Results.Ok(new Product { ID = id });
+            productRepository.Delete(id);
         })
         .WithName("DeleteProduct")
         .Produces<Product>(StatusCodes.Status200OK);

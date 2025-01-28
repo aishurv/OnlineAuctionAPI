@@ -31,7 +31,7 @@ namespace OnlineAuctionAPI.Controllers
             return Ok(admin);
         }
         [HttpPost]
-        public async Task<ActionResult> Create(string name )
+        public async Task<ActionResult> Create(string name)
         {
             var admin = new Admin()
             {

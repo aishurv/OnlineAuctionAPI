@@ -9,7 +9,7 @@ namespace OnlineAuctionAPI.Controllers
         public static void MapUserEndpoints(this IEndpointRouteBuilder routes)
         {
             var group = routes.MapGroup("/api/User").WithTags(nameof(User));
-            
+
             group.MapGet("/", () =>
             {
                 return DBConnection.Users;
@@ -18,7 +18,7 @@ namespace OnlineAuctionAPI.Controllers
             .WithOpenApi();
             group.MapGet("/{id}", (String id) =>
             {
-                return DBConnection.Users.Where(user=> user._id==id);
+                return DBConnection.Users.Where(user => user._id == id);
             })
             .WithName("GetUserById")
             .WithOpenApi();

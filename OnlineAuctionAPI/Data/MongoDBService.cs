@@ -4,12 +4,10 @@ namespace OnlineAuctionAPI.Data
 {
     public class MongoDbService
     {
-        private readonly IConfiguration _configuration;
         private readonly IMongoDatabase? _database;
 
-        public MongoDbService(IConfiguration configuration) 
+        public MongoDbService() 
         {
-            _configuration =configuration;
             var connectionString = "mongodb://localhost:27017";//_configuration.GetConnectionString("DbConnection");
             var mongoUrl = MongoUrl.Create(connectionString);
             var mongoClient = new MongoClient(mongoUrl);
