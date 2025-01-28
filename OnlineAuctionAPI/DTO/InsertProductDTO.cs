@@ -1,17 +1,12 @@
 ﻿#nullable disable
+
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
-namespace OnlineAuctionAPI.Models
+namespace OnlineAuctionAPI.DTO
 {
-    public class Product
+    public class InsertProductDTO
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string _id { get; set; }
-        [BsonElement("name")]
-        [Required]
-        [MaxLength(30)]
         public string Name { get; set; }
         [BsonElement("description")]
         [Required]
@@ -25,7 +20,5 @@ namespace OnlineAuctionAPI.Models
         public decimal PreValue { get; set; }
         [BsonElement("isactive")]
         public bool IsActive { get; set; }
-
-
     }
 }

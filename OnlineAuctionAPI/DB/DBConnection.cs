@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using OnlineAuctionAPI.Models;
 namespace DB
 {
@@ -10,6 +13,14 @@ namespace DB
         public static IMongoDatabase Database;
         private static readonly IMongoCollection<Product> _productCollection;
         private static readonly IMongoCollection<User> _userCollection;
+        private static bool _isInitialized = false;
+
+        public static void Configure()
+        {
+            if (_isInitialized) return;
+                BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+            _isInitialized = true;
+        }
         static DBConnection()
         {
              mongoClient = new MongoClient("mongodb://localhost:27017");
@@ -18,7 +29,16 @@ namespace DB
             _productCollection = Database.GetCollection<Product>("products");
             _userCollection = Database.GetCollection<User>("users");
             Console.WriteLine(Database.GetType().Name);
+            
         }
+        public static MongoCollection<User> UsersCollection
+        {
+            get
+            {
+                return (MongoCollection<User>)Database.GetCollection<User>("users");
+            }
+        }
+        
         public static List<Product> Products
         {
             get
@@ -51,6 +71,7 @@ namespace DB
         {
             _userCollection.InsertMany(users);
         }
+        
 
 
     }
