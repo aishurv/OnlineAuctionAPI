@@ -1,7 +1,5 @@
 using OnlineAuctionAPI;
 using OnlineAuctionAPI.Controllers;
-using AutoMapper;
-using DB;
 using OnlineAuctionAPI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +9,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSingleton<MongoDbService>();
 var app = builder.Build();
 

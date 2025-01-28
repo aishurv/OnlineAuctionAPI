@@ -1,8 +1,7 @@
-﻿using DB;
+﻿
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
-using OnlineAuctionAPI.DTO;
 #nullable disable
 namespace OnlineAuctionAPI.Models
 {
@@ -21,18 +20,7 @@ namespace OnlineAuctionAPI.Models
         [BsonRepresentation(BsonType.Double)]
         public decimal ContactNo { get; set; }
 
-        [Required]
-        public string UserName;
-        public User()
-        {
-
-        }
-        public User(InsertUserDTO user)
-        {
-            Name = user.Name;
-            ContactNo = user.ContactNo;
-            UserName = user.UserName;
-        }
+        
     }
     
 

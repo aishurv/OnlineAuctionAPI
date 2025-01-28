@@ -10,12 +10,12 @@ namespace OnlineAuctionAPI.Controllers
 {
     public class ProductRepository
     {
-        private readonly MongoDbService mongoDbService = new();
+        private readonly MongoDbService _mongoDbService = new();
 
         private readonly IMongoCollection<Product>? _products;
         public ProductRepository() 
         {
-            _products = mongoDbService.Database?.GetCollection<Product>("product");
+            _products = _mongoDbService.Database?.GetCollection<Product>("product");
         }
         public async Task<IEnumerable<Product>> GetAllproducts()
         {
