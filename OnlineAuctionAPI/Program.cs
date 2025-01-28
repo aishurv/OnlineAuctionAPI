@@ -2,6 +2,7 @@ using OnlineAuctionAPI;
 using OnlineAuctionAPI.Controllers;
 using AutoMapper;
 using DB;
+using OnlineAuctionAPI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
-
+builder.Services.AddSingleton<MongoDbService>();
 var app = builder.Build();
 
 //DBConnection.Configure();
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
 
 //AddDummyData.AddDummyProduct();
 //AddDummyData.AddDummyUser();
+//AddDummyData.AddDummyAdmin();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

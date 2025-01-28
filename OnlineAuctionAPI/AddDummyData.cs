@@ -1,6 +1,8 @@
 ﻿using OnlineAuctionAPI.Models;
 using DB;
 using System.Xml.Linq;
+using OnlineAuctionAPI.Model;
+using OnlineAuctionAPI.Controllers;
 namespace OnlineAuctionAPI
 {   
     public static class AddDummyData
@@ -20,7 +22,11 @@ namespace OnlineAuctionAPI
             PreValue =118m,
             IsActive =true
         };
-
+        static Admin admin = new Admin()
+        {
+            Name = "admin"
+        };
+        
         public static void AddDummyUser()
         {
             DBConnection.AddUser(user);
@@ -29,6 +35,9 @@ namespace OnlineAuctionAPI
         {
             DBConnection.AddProduct(product);
         }
-
+        //public static void AddDummyAdmin()
+        //{
+        //    AdminController.addAdmin(admin);
+        //}
     }
 }
